@@ -1,0 +1,19 @@
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xor123x/utils/master/hitomifirsteveruilib"))()
+local main = library:Window("HitomiHub","Swordburst2")
+
+local e = main:Tab("Example")
+main:Tab("name1")
+main:Tab("name2")
+main:Tab("name3")
+
+e:button("pressmetoprintfuck",function()
+	print("fuck")
+end)
+
+e:toggle("printmyvaluedaddy",function(state)
+	print(state)
+end)
+
+e:slider("slidemeupanddown", 10, 100,function(state)
+	game.Players.LocalPlayer.WalkSpeed = state
+end)
