@@ -474,3 +474,4 @@ function library:Window(text,name)
 	end
 	return insidelibrary;
 end
+return library;
