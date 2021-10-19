@@ -1,0 +1,476 @@
+local library = {}
+
+function library:Window(text,name)
+	local ScreenGui = Instance.new("ScreenGui")
+	local Window = Instance.new("ImageLabel")
+	local Hex = Instance.new("ImageLabel")
+	local TabsList = Instance.new("ImageLabel")
+	local UIListLayout = Instance.new("UIListLayout")
+	local Top = Instance.new("ImageLabel")
+	local Pattern = Instance.new("ImageLabel")
+	local exit = Instance.new("TextButton")
+	local TextButton_Roundify_12px_2 = Instance.new("ImageLabel")
+	local clear = Instance.new("ImageButton")
+	local HubName = Instance.new("TextLabel")
+	local GameName = Instance.new("TextLabel")
+	local Tabs = Instance.new("Folder")
+	local script = Instance.new('LocalScript', Window)
+
+	local UIS = game:GetService('UserInputService')
+	local frame = script.Parent
+	local dragToggle = nil
+	local dragSpeed = 0.25
+	local dragStart = nil
+	local startPos = nil
+
+	local function updateInput(input)
+		local delta = input.Position - dragStart
+		local position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,
+			startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+		game:GetService('TweenService'):Create(frame, TweenInfo.new(dragSpeed), {Position = position}):Play()
+	end
+
+	frame.InputBegan:Connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then 
+			dragToggle = true
+			dragStart = input.Position
+			startPos = frame.Position
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragToggle = false
+				end
+			end)
+		end
+	end)
+
+	UIS.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			if dragToggle then
+				updateInput(input)
+			end
+		end
+	end)
+
+	ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+	Window.Name = "Window"
+	Window.Parent = ScreenGui
+	Window.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Window.BackgroundTransparency = 1.000
+	Window.Position = UDim2.new(0.323358268, 0, 0.317689538, 0)
+	Window.Size = UDim2.new(0, 425, 0, 397)
+	Window.Image = "rbxassetid://3570695787"
+	Window.ImageColor3 = Color3.fromRGB(18, 18, 18)
+	Window.ScaleType = Enum.ScaleType.Slice
+	Window.SliceCenter = Rect.new(100, 100, 100, 100)
+	Window.SliceScale = 0.120
+
+	Hex.Name = "Hex"
+	Hex.Parent = Window
+	Hex.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Hex.BackgroundTransparency = 1.000
+	Hex.Position = UDim2.new(0, 0, -0.000697138312, 0)
+	Hex.Size = UDim2.new(0, 424, 0, 395)
+	Hex.Image = "rbxassetid://2151782136"
+	Hex.ScaleType = Enum.ScaleType.Tile
+	Hex.SliceCenter = Rect.new(0, 256, 0, 256)
+	Hex.TileSize = UDim2.new(0, 30, 0, 50)
+
+	TabsList.Name = "TabsList"
+	TabsList.Parent = Window
+	TabsList.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TabsList.BackgroundTransparency = 1.000
+	TabsList.Position = UDim2.new(0, 0, 0.112090677, 0)
+	TabsList.Size = UDim2.new(0, 121, 0, 351)
+	TabsList.Image = "rbxassetid://3570695787"
+	TabsList.ImageColor3 = Color3.fromRGB(17, 17, 17)
+	TabsList.ScaleType = Enum.ScaleType.Slice
+	TabsList.SliceCenter = Rect.new(100, 100, 100, 100)
+	TabsList.SliceScale = 0.120
+
+	UIListLayout.Parent = TabsList
+	UIListLayout.FillDirection = Enum.FillDirection.Vertical
+	UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	UIListLayout.Padding = UDim.new(0, 5)
+
+	Top.Name = "Top"
+	Top.Parent = Window
+	Top.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Top.BackgroundTransparency = 1.000
+	Top.Size = UDim2.new(0, 425, 0, 45)
+	Top.ZIndex = 2
+	Top.Image = "rbxassetid://3570695787"
+	Top.ImageColor3 = Color3.fromRGB(17, 17, 17)
+	Top.ScaleType = Enum.ScaleType.Slice
+	Top.SliceCenter = Rect.new(100, 100, 100, 100)
+	Top.SliceScale = 0.120
+
+	Pattern.Name = "Pattern"
+	Pattern.Parent = Top
+	Pattern.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Pattern.BackgroundTransparency = 1.000
+	Pattern.Position = UDim2.new(0, 0, -0.0111111114, 0)
+	Pattern.Size = UDim2.new(0, 424, 0, 45)
+	Pattern.ZIndex = 9
+	Pattern.Image = "rbxassetid://2151741365"
+	Pattern.ImageTransparency = 0.600
+	Pattern.ScaleType = Enum.ScaleType.Tile
+	Pattern.SliceCenter = Rect.new(0, 256, 0, 256)
+	Pattern.TileSize = UDim2.new(0, 250, 0, 250)
+
+	exit.Name = "exit"
+	exit.Parent = Top
+	exit.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	exit.BackgroundTransparency = 1.000
+	exit.BorderSizePixel = 0
+	exit.Position = UDim2.new(0.872941196, 0, 0, 0)
+	exit.Size = UDim2.new(0, 53, 0, 44)
+	exit.ZIndex = 3
+	exit.Font = Enum.Font.SourceSans
+	exit.Text = ""
+	exit.TextColor3 = Color3.fromRGB(0, 0, 0)
+	exit.TextSize = 14.000
+	exit.MouseButton1Down:Connect(function()
+		ScreenGui:Destroy()
+	end)
+
+	TextButton_Roundify_12px_2.Name = "TextButton_Roundify_12px"
+	TextButton_Roundify_12px_2.Parent = exit
+	TextButton_Roundify_12px_2.Active = true
+	TextButton_Roundify_12px_2.AnchorPoint = Vector2.new(0.5, 0.5)
+	TextButton_Roundify_12px_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextButton_Roundify_12px_2.BackgroundTransparency = 1.000
+	TextButton_Roundify_12px_2.Position = UDim2.new(0.5, 0, 0.5, 0)
+	TextButton_Roundify_12px_2.Selectable = true
+	TextButton_Roundify_12px_2.Size = UDim2.new(1, 0, 1, 0)
+	TextButton_Roundify_12px_2.Image = "rbxassetid://3570695787"
+	TextButton_Roundify_12px_2.ScaleType = Enum.ScaleType.Slice
+	TextButton_Roundify_12px_2.SliceCenter = Rect.new(100, 100, 100, 100)
+	TextButton_Roundify_12px_2.SliceScale = 0.120
+
+	clear.Name = "clear"
+	clear.Parent = exit
+	clear.BackgroundTransparency = 1.000
+	clear.LayoutOrder = 5
+	clear.Position = UDim2.new(0.242408603, 0, 0.225956306, 0)
+	clear.Size = UDim2.new(0, 29, 0, 28)
+	clear.ZIndex = 2
+	clear.Image = "rbxassetid://3926305904"
+	clear.ImageRectOffset = Vector2.new(924, 724)
+	clear.ImageRectSize = Vector2.new(36, 36)
+
+	HubName.Name = "HubName"
+	HubName.Parent = Top
+	HubName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	HubName.BackgroundTransparency = 1.000
+	HubName.Size = UDim2.new(0, 121, 0, 30)
+	HubName.ZIndex = 3
+	HubName.Font = Enum.Font.GothamSemibold
+	HubName.Text = text
+	HubName.TextColor3 = Color3.fromRGB(255, 255, 255)
+	HubName.TextSize = 14.000
+
+	GameName.Name = "GameName"
+	GameName.Parent = Top
+	GameName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	GameName.BackgroundTransparency = 1.000
+	GameName.Position = UDim2.new(0, 0, 0.666666687, 0)
+	GameName.Size = UDim2.new(0, 121, 0, 15)
+	GameName.ZIndex = 3
+	GameName.Font = Enum.Font.GothamSemibold
+	GameName.Text = name
+	GameName.TextColor3 = Color3.fromRGB(255, 255, 255)
+	GameName.TextSize = 12.000
+
+	Tabs.Name = "Tabs"
+	Tabs.Parent = Window
+
+	local insidelibrary = {}
+
+	function insidelibrary:Tab(name)
+		local UIListLayout_2 = Instance.new("UIListLayout")
+		local TabButton = Instance.new("TextButton")
+		local TextButton_Roundify_12px = Instance.new("ImageLabel")
+		local Tab = Instance.new("Frame")
+		TabButton.Name = name.."Button"
+		TabButton.Parent = TabsList
+		TabButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TabButton.BackgroundTransparency = 1.000
+		TabButton.BorderSizePixel = 0
+		TabButton.Position = UDim2.new(0.219008267, 0, 0.131054133, 0)
+		TabButton.Size = UDim2.new(0, 112, 0, 33)
+		TabButton.ZIndex = 2
+		TabButton.Font = Enum.Font.SourceSans
+		TabButton.Text = name
+		TabButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+		TabButton.TextSize = 14.000
+
+		TextButton_Roundify_12px.Name = "TextButton_Roundify_12px"
+		TextButton_Roundify_12px.Parent = TabButton
+		TextButton_Roundify_12px.Active = true
+		TextButton_Roundify_12px.AnchorPoint = Vector2.new(0.5, 0.5)
+		TextButton_Roundify_12px.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TextButton_Roundify_12px.BackgroundTransparency = 1.000
+		TextButton_Roundify_12px.Position = UDim2.new(0.5, 0, 0.5, 0)
+		TextButton_Roundify_12px.Selectable = true
+		TextButton_Roundify_12px.Size = UDim2.new(1, 0, 1, 0)
+		TextButton_Roundify_12px.Image = "rbxassetid://3570695787"
+		TextButton_Roundify_12px.ScaleType = Enum.ScaleType.Slice
+		TextButton_Roundify_12px.SliceCenter = Rect.new(100, 100, 100, 100)
+		TextButton_Roundify_12px.SliceScale = 0.120
+
+		Tab.Name = name.."container"
+		Tab.Parent = Tabs
+		Tab.BackgroundColor3 = Color3.fromRGB(19, 19, 19)
+		Tab.BackgroundTransparency = 1.000
+		Tab.BorderSizePixel = 0
+		Tab.Position = UDim2.new(0.284705877, 0, 0.113350123, 0)
+		Tab.Size = UDim2.new(0, 303, 0, 349)
+
+		UIListLayout_2.Parent = Tab
+		UIListLayout_2.HorizontalAlignment = Enum.HorizontalAlignment.Center
+		UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+		UIListLayout_2.Padding = UDim.new(0, 5)
+
+		TabButton.MouseButton1Click:Connect(function()
+			for i,v in next, Tabs:GetChildren() do
+				v.Visible = false
+			end
+			Tab.Visible = true
+			print(Tab.Name)
+		end)
+
+		local insidetab = {}
+
+		function insidetab:button(text,callback)
+			local callback = callback or function() end
+			local Button = Instance.new("TextButton")
+			local TextButton_Roundify_12px_3 = Instance.new("ImageLabel")
+			Button.Name = text
+			Button.Parent = Tab
+			Button.BackgroundColor3 = Color3.fromRGB(19, 19, 19)
+			Button.BackgroundTransparency = 1.000
+			Button.BorderSizePixel = 0
+			Button.Position = UDim2.new(0.0231023096, 0, 0, 0)
+			Button.Size = UDim2.new(0, 284, 0, 50)
+			Button.ZIndex = 2
+			Button.Font = Enum.Font.GothamSemibold
+			Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Button.TextSize = 14.000
+			Button.Text = text
+			Button.MouseButton1Down:Connect(function()
+				pcall(callback)
+			end)
+
+			TextButton_Roundify_12px_3.Name = "TextButton_Roundify_12px"
+			TextButton_Roundify_12px_3.Parent = Button
+			TextButton_Roundify_12px_3.Active = true
+			TextButton_Roundify_12px_3.AnchorPoint = Vector2.new(0.5, 0.5)
+			TextButton_Roundify_12px_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			TextButton_Roundify_12px_3.BackgroundTransparency = 1.000
+			TextButton_Roundify_12px_3.Position = UDim2.new(0.5, 0, 0.5, 0)
+			TextButton_Roundify_12px_3.Selectable = true
+			TextButton_Roundify_12px_3.Size = UDim2.new(1, 0, 1, 0)
+			TextButton_Roundify_12px_3.Image = "rbxassetid://3570695787"
+			TextButton_Roundify_12px_3.ImageColor3 = Color3.fromRGB(19, 19, 19)
+			TextButton_Roundify_12px_3.ScaleType = Enum.ScaleType.Slice
+			TextButton_Roundify_12px_3.SliceCenter = Rect.new(100, 100, 100, 100)
+			TextButton_Roundify_12px_3.SliceScale = 0.120
+
+			function insidetab:toggle(text,callback)
+				local toggled = false
+				local Toggle = Instance.new("TextButton")
+				local TextButton_Roundify_12px_4 = Instance.new("ImageLabel")
+				local brightness_1 = Instance.new("ImageButton")
+				local Toggletext = Instance.new("TextLabel")
+
+				Toggle.Name = "Toggle"
+				Toggle.Parent = Tab
+				Toggle.BackgroundColor3 = Color3.fromRGB(19, 19, 19)
+				Toggle.BackgroundTransparency = 1.000
+				Toggle.BorderSizePixel = 0
+				Toggle.Position = UDim2.new(0.0231023096, 0, 0.157593116, 0)
+				Toggle.Size = UDim2.new(0, 284, 0, 50)
+				Toggle.ZIndex = 2
+				Toggle.Font = Enum.Font.GothamSemibold
+				Toggle.Text = ""
+				Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+				Toggle.TextSize = 14.000
+				Toggle.TextXAlignment = Enum.TextXAlignment.Left
+				Toggle.MouseButton1Down:Connect(function()
+					if toggled == false then
+						toggled = true
+						brightness_1.ImageColor3 = Color3.fromRGB(0, 85, 0)
+						pcall(callback, toggled)
+					elseif toggled == true then
+						toggled = false
+						brightness_1.ImageColor3 = Color3.fromRGB(170, 0, 0)
+						pcall(callback, toggled)
+					end
+				end)
+
+				TextButton_Roundify_12px_4.Name = "TextButton_Roundify_12px"
+				TextButton_Roundify_12px_4.Parent = Toggle
+				TextButton_Roundify_12px_4.Active = true
+				TextButton_Roundify_12px_4.AnchorPoint = Vector2.new(0.5, 0.5)
+				TextButton_Roundify_12px_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				TextButton_Roundify_12px_4.BackgroundTransparency = 1.000
+				TextButton_Roundify_12px_4.Position = UDim2.new(0.5, 0, 0.5, 0)
+				TextButton_Roundify_12px_4.Selectable = true
+				TextButton_Roundify_12px_4.Size = UDim2.new(1, 0, 1, 0)
+				TextButton_Roundify_12px_4.Image = "rbxassetid://3570695787"
+				TextButton_Roundify_12px_4.ImageColor3 = Color3.fromRGB(19, 19, 19)
+				TextButton_Roundify_12px_4.ScaleType = Enum.ScaleType.Slice
+				TextButton_Roundify_12px_4.SliceCenter = Rect.new(100, 100, 100, 100)
+				TextButton_Roundify_12px_4.SliceScale = 0.120
+
+				brightness_1.Name = "brightness_1"
+				brightness_1.Parent = Toggle
+				brightness_1.BackgroundTransparency = 1.000
+				brightness_1.Position = UDim2.new(0.875, 0, 0.287341774, 0)
+				brightness_1.Size = UDim2.new(0, 25, 0, 25)
+				brightness_1.Image = "rbxassetid://3926307971"
+				brightness_1.ImageColor3 = Color3.fromRGB(170, 0, 0)
+				brightness_1.ImageRectOffset = Vector2.new(644, 44)
+				brightness_1.ImageRectSize = Vector2.new(36, 36)
+
+				Toggletext.Name = "Toggletext"
+				Toggletext.Parent = Toggle
+				Toggletext.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+				Toggletext.BackgroundTransparency = 1.000
+				Toggletext.Position = UDim2.new(0.0568030998, 0, 0.13594909, 0)
+				Toggletext.Size = UDim2.new(0, 226, 0, 38)
+				Toggletext.ZIndex = 2
+				Toggletext.Font = Enum.Font.GothamSemibold
+				Toggletext.TextColor3 = Color3.fromRGB(255, 255, 255)
+				Toggletext.TextSize = 16.000
+				Toggletext.TextXAlignment = Enum.TextXAlignment.Right
+				Toggletext.Text = text
+
+				function insidetab:slider(text, minvalue, maxvalue, callback)
+
+					minvalue = minvalue or 0
+					maxvalue = maxvalue or 100
+
+					callback = callback or function() end
+
+					local mouse = game.Players.LocalPlayer:GetMouse()
+					local uis = game:GetService("UserInputService")
+					local Value;
+
+					local Slider = Instance.new("ImageLabel")
+					local SilderName = Instance.new("TextLabel")
+					local SliderButton = Instance.new("TextButton")
+					local TextButton_Roundify_12px = Instance.new("ImageLabel")
+					local SliderInner = Instance.new("ImageLabel")
+					local SliderValue = Instance.new("TextLabel")
+
+					Slider.Name = "Slider"
+					Slider.Parent = Tab
+					Slider.Active = true
+					Slider.AnchorPoint = Vector2.new(0.5, 0.5)
+					Slider.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					Slider.BackgroundTransparency = 1.000
+					Slider.Position = UDim2.new(0.491497785, 0, 0.399713457, 0)
+					Slider.Selectable = true
+					Slider.Size = UDim2.new(0.943391621, 0, 0.14040114, 0)
+					Slider.Image = "rbxassetid://3570695787"
+					Slider.ImageColor3 = Color3.fromRGB(19, 19, 19)
+					Slider.ScaleType = Enum.ScaleType.Slice
+					Slider.SliceCenter = Rect.new(100, 100, 100, 100)
+					Slider.SliceScale = 0.120
+
+					SilderName.Name = "SilderName"
+					SilderName.Parent = Slider
+					SilderName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					SilderName.BackgroundTransparency = 1.000
+					SilderName.Position = UDim2.new(0.0633802786, 0, 0, 0)
+					SilderName.Size = UDim2.new(0, 97, 0, 20)
+					SilderName.Font = Enum.Font.GothamSemibold
+					SilderName.Text = text
+					SilderName.TextColor3 = Color3.fromRGB(255, 255, 255)
+					SilderName.TextSize = 14.000
+
+					SliderButton.Name = "SliderButton"
+					SliderButton.Parent = Slider
+					SliderButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					SliderButton.BackgroundTransparency = 1.000
+					SliderButton.BorderSizePixel = 0
+					SliderButton.Position = UDim2.new(0.0528052822, 0, 0.389684826, 0)
+					SliderButton.Size = UDim2.new(0, 260, 0, 18)
+					SliderButton.Font = Enum.Font.SourceSans
+					SliderButton.Text = ""
+					SliderButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+					SliderButton.TextSize = 14.000
+
+					TextButton_Roundify_12px.Name = "TextButton_Roundify_12px"
+					TextButton_Roundify_12px.Parent = SliderButton
+					TextButton_Roundify_12px.Active = true
+					TextButton_Roundify_12px.AnchorPoint = Vector2.new(0.5, 0.5)
+					TextButton_Roundify_12px.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					TextButton_Roundify_12px.BackgroundTransparency = 1.000
+					TextButton_Roundify_12px.Position = UDim2.new(0.5, 0, 0.5, 0)
+					TextButton_Roundify_12px.Selectable = true
+					TextButton_Roundify_12px.Size = UDim2.new(1, 0, 1, 0)
+					TextButton_Roundify_12px.Image = "rbxassetid://3570695787"
+					TextButton_Roundify_12px.ScaleType = Enum.ScaleType.Slice
+					TextButton_Roundify_12px.SliceCenter = Rect.new(100, 100, 100, 100)
+					TextButton_Roundify_12px.SliceScale = 0.120
+
+					SliderInner.Name = "SliderInner"
+					SliderInner.Parent = SliderButton
+					SliderInner.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					SliderInner.BackgroundTransparency = 1.000
+					SliderInner.Size = UDim2.new(0, 0, 0, 19)
+					SliderInner.Image = "rbxassetid://3570695787"
+					SliderInner.ImageColor3 = Color3.fromRGB(92, 89, 94)
+					SliderInner.ScaleType = Enum.ScaleType.Slice
+					SliderInner.SliceCenter = Rect.new(100, 100, 100, 100)
+					SliderInner.SliceScale = 0.120
+
+					SliderValue.Name = "SliderValue"
+					SliderValue.Parent = Slider
+					SliderValue.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					SliderValue.BackgroundTransparency = 1.000
+					SliderValue.Position = UDim2.new(0.874591768, 0, 0.0408163294, 0)
+					SliderValue.Size = UDim2.new(0, 29, 0, 17)
+					SliderValue.Font = Enum.Font.SourceSans
+					SliderValue.Text = "0"
+					SliderValue.TextColor3 = Color3.fromRGB(255, 255, 255)
+					SliderValue.TextSize = 14.000
+
+					SliderButton.MouseButton1Down:Connect(function()
+						Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 260) * SliderInner.AbsoluteSize.X) + tonumber(minvalue)) or 0
+						pcall(function()
+							callback(Value)
+						end)
+						SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 260), 0, 18)
+						moveconnection = mouse.Move:Connect(function()
+							SliderValue.Text = Value
+							Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 260) * SliderInner.AbsoluteSize.X) + tonumber(minvalue))
+							pcall(function()
+								callback(Value)
+							end)
+							SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 260), 0, 18)
+						end)
+						releaseconnection = uis.InputEnded:Connect(function(Mouse)
+							if Mouse.UserInputType == Enum.UserInputType.MouseButton1 then
+								Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 260) * SliderInner.AbsoluteSize.X) + tonumber(minvalue))
+								pcall(function()
+									callback(Value)
+								end)
+								SliderInner.Size = UDim2.new(0, math.clamp(mouse.X - SliderInner.AbsolutePosition.X, 0, 260), 0, 18)
+								moveconnection:Disconnect()
+								releaseconnection:Disconnect()
+							end
+						end)
+
+					end)
+				end
+			end
+		end
+		return insidetab;
+	end
+	return insidelibrary;
+end
